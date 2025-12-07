@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: momon-backend
+
+  # Virtual Threads 활성화 (Java 21)
+  threads:
+    virtual:
+      enabled: true
+
+  # Database
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # AI 설정
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:your-api-key-here}
+      chat:
+        options:
+          model: gpt-4o
+      image:
+        options:
+          model: dall-e-3
+
+# AWS S3 설정
+aws:
+  s3:
+    bucket-name: ${AWS_S3_BUCKET_NAME:momon-images}
+    region: ap-northeast-2
+  credentials:
+    access-key: ${AWS_ACCESS_KEY_ID:}
+    secret-key: ${AWS_SECRET_ACCESS_KEY:}
+
+# 서버 설정
+server:
+  port: 8080
+
+# CORS 설정 (WebConfig 클래스에서 처리)
