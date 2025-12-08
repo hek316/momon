@@ -43,7 +43,34 @@ momon/
 
 ## Development Commands
 
-### Frontend
+### Docker (Recommended for Full-Stack Development)
+```bash
+# Setup environment variables first
+cp .env.example .env
+# Edit .env and add your API keys
+
+# Start all services (PostgreSQL + Backend + Frontend)
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+
+# Rebuild after code changes
+docker-compose up -d --build
+
+# Reset database (removes all data)
+docker-compose down -v
+```
+
+**Services:**
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8080
+- PostgreSQL: localhost:5432 (DB: momon, User: momon, Pass: momon123)
+
+### Frontend (Local Development without Docker)
 ```bash
 cd frontend
 npm install          # Install dependencies
@@ -52,7 +79,7 @@ npm run build        # Production build
 npm run lint         # Run ESLint
 ```
 
-### Backend
+### Backend (Local Development without Docker)
 ```bash
 cd backend
 ./gradlew bootRun    # Start server (http://localhost:8080) - stays at 80% while running
@@ -61,7 +88,9 @@ cd backend
 ./gradlew clean      # Clean build artifacts
 ```
 
-**Note**: `./gradlew bootRun` shows "80% EXECUTING" while server is running - this is normal, not a hang.
+**Note**:
+- `./gradlew bootRun` shows "80% EXECUTING" while server is running - this is normal, not a hang.
+- Local backend uses H2 in-memory database. Docker uses PostgreSQL (production-like).
 
 ### Database Console (Development)
 - H2 Console: http://localhost:8080/h2-console
