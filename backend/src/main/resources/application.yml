@@ -27,6 +27,11 @@ spring:
       enabled: true
       path: /h2-console
 
+  # Spring AI 자동 설정 비활성화 (개발 단계에서는 불필요)
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration
+
 ---
 # Docker profile (PostgreSQL)
 spring:
