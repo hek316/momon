@@ -37,9 +37,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
-      - ./backend:/app
-      - gradle_cache:/root/.gradle
+    # Note: No volume mount for backend since it runs from compiled jar
+    # Code changes require rebuild: docker-compose up -d --build backend
 
   # Frontend (Next.js)
   frontend:
@@ -60,4 +59,3 @@ services:
 
 volumes:
   postgres_data:
-  gradle_cache:

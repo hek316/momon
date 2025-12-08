@@ -25,12 +25,10 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-# Copy built jar from build stage
-COPY --from=build /app/build/libs/*.jar app.jar
-
-# Enable Virtual Threads (Java 21)
-ENV JAVA_OPTS="-XX:+UseVirtualThreads"
+# Copy built jar from build stage (use exact filename pattern)
+COPY --from=build /app/build/libs/momon-backend-*.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+# Virtual Threads are automatically enabled via application.yml (spring.threads.virtual.enabled: true)
+ENTRYPOINT ["java", "-jar", "app.jar"]
